@@ -29,7 +29,7 @@ function validateHoursPerWeek(hours){
 }
 function validateDaysPerWeek(days){
     if (!days) return false;
-    let hoursValid = Number.isInteger(Number(days)) && Number(days) >= 1 && Number(days) <= 40;
+    let hoursValid = Number.isInteger(Number(days)) && Number(days) >= 1 && Number(days) <= 7;
     return hoursValid;
 }
 function validateSelect(select){
@@ -43,6 +43,7 @@ function validateForm(){
     let myFiles = document.getElementById("files").files;
     let myHours = document.getElementById("horas").value;
     let myDays = document.getElementById("days").value;
+    let mySelect = document.getElementById("tipo-actividad").value;
     let validate = true;
     let invalidInputs = []
     function setinvalidInputs(input){
@@ -50,20 +51,24 @@ function validateForm(){
         validate&&= false;
     }
     if (!nameValidation(myName)){
-        setinvalidInputs("nombre");
+        setinvalidInputs("Nombre");
     }
     if (!emailValidation(myEmail)){
-        setinvalidInputs("email");
+        setinvalidInputs("Email");
     }
-    if (!validateFiles(myFiles)){
-        setinvalidInputs("files");
-    }
-    if (!validateHoursPerWeek(myHours)){
-        setinvalidInputs("hours");
+    if (!validateSelect(mySelect)){
+        setinvalidInputs("Tipo de actividad");
     }
     if (!validateDaysPerWeek(myDays)){
-        setinvalidInputs("days");
+        setinvalidInputs("Dias");
     }
+    if (!validateHoursPerWeek(myHours)){
+        setinvalidInputs("Horas");
+    }
+    if (!validateFiles(myFiles)){
+        setinvalidInputs("Archivo");
+    }
+
 
     let validationBox = document.getElementById("val-box");
     let validationMsg = document.getElementById("val-msg");
@@ -85,6 +90,7 @@ function validateForm(){
 
         // hacer visible el mensaje de validación
         validationBox.hidden = false;
+        validationBox.scrollIntoView({behavior: "smooth"});
     }
     else{
         validationBox.hidden = true;

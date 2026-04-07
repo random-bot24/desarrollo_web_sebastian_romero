@@ -7,6 +7,11 @@
     <body>
         <header>
             <h1>Registro de Actividades DCC</h1>
+            <nav>
+                <a href="main.html" class="button">Inicio</a>
+                <a href="statistics.html" class="button">Estadísticas</a>
+                <a href="list_members.html" class="button">Lista de Miembros</a>
+            </nav>
         </header>
         <main>
             <section>
@@ -18,8 +23,6 @@
                 <form name="registro" method="post">
                     <label for="nombre">Nombre:</label>
                     <input type="text" id="nombre" name="nombre"><br><br>
-                    <label for="apellido">Apellido:</label>
-                    <input type="text" id="apellido" name="apellido"><br><br>
                     <label for="email">Correo Electrónico:</label>
                     <input type="email" id="email" name="email"><br><br>
                 </form>
@@ -31,7 +34,17 @@
                     <label for= "nombre1">Nombre:</label>
                     <input type= "text" id="nombreA" name ="nombre" required> <br><br>
 
-                    <label for="descripcion">Descripción:</label>
+                    <label for="tipo">Tipo de Actividad</label>
+                    <select id="tipo-actividad">
+                        <option value="">-- Seleccione --</option>
+                        <option value="deportiva">Deportiva</option>
+                        <option value="artistica">Artística</option>
+                        <option value="tecnologica">Tecnológica</option>
+                        <option value="social">Social</option>
+                        <option value="recreativa">Recreativa</option>
+                    </select>
+
+                    <label for="descripcion">Descripción (opcional):</label>
                     <input type="text" id="descripcion" name="descripcion" required><br><br>
 
                     <label for= "dias">Días dedicados:</label>
