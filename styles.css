@@ -10,12 +10,12 @@ body{
 
 h1{
     font-family: Arial, sans-serif;
-    color: #000000b3;
+    color: #6D28D9;
 }
 
 h2{
     text-align:center;
-    color: #000000b3;
+    color: #6D28D9
 }
 
 .button{
@@ -36,9 +36,9 @@ form{
     padding: 20px;
     gap: 5px;
     width: 300px;
-    background-color:#2e9da1db;
+    background-color:#F5F3FF;
     border-radius: 5px;
-
+    border:1px solid #C084FC;
 
 }
 input{
@@ -48,7 +48,7 @@ input{
 }
 
 label{
-    color: white;
+    color: #374151;
 }
 
 #val-box {
@@ -94,4 +94,20 @@ nav {
   background: rgba(255,255,255,0.8);
   backdrop-filter: blur(10px);
   box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+
+#container {
+    background-color:#F5F3FF;
+    border-radius: 10px;
+    padding: 20px;
+    border:1px solid #C084FC;
+    width: 80%;
+    margin: 20px auto;
+    flex-direction: column;
+    font-family: Old Standard TT, serif;
+    color: #374151;
+}
+
+#container h1 {
+    color: #6D28D9
 }

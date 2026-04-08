@@ -94,6 +94,7 @@ function validateForm(){
     }
     else{
         validationBox.hidden = true;
+        alert("Formulario enviado correctamente");
         window.location.href = "main.html";
     }
 }
