@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% block title %}Listado de Miembros{% endblock %}
+
+{% block content %}
+{% for miembro in miembros %}
+<section>
+    <div class="member">
+        <p>Nombre: {{ miembro.nombre }}</p>
+        <p>Correo electrónico: {{ miembro.correo_electronico }}</p>
+    </div>
+</section>
+{% endfor %}
+{% endblock %}
