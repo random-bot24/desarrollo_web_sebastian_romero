@@ -3,11 +3,19 @@
 
 {% block content %}
 {% for miembro in miembros %}
-<section>
-    <div class="member">
-        <p>Nombre: {{ miembro.nombre }}</p>
-        <p>Correo electrónico: {{ miembro.correo_electronico }}</p>
-    </div>
-</section>
+<div id="container" style="padding-top: 80px; padding-bottom: 80px;">
+            
+    <h2 style="font-size: 3rem; margin-bottom: 20px;">Miembros Registrados</h2>
+            
+        <div style="display: flex; flex-wrap: wrap; gap: 20px; justify-content: center;">
+            {% for miembro in miembros %}
+                <div style="background-color: #f0f0f0; padding: 20px; border-radius: 10px; width: 250px; text-align: center;">
+                    <h3 style="margin-top: 0;">{{ miembro.nombre }}</h3>
+                    <p style="margin-bottom: 5px;"><strong>Email:</strong> {{ miembro.email }}</p>
+                    <p style="margin-bottom: 0;"><strong>Teléfono:</strong> {{ miembro.telefono }}</p>
+                </div>
+            {% endfor %}
+        </div>
+</div>
 {% endfor %}
 {% endblock %}

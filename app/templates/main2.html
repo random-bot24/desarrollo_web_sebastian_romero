@@ -3,8 +3,36 @@
 {% block head %}
 {{ super() }}
 {% endblock %}
+
 {% block content %}
 </section>
-    <h1> ¡Bienvenido a Actividades DCC!</h1>
+    <div id="container" style="padding-top: 80px; padding-bottom: 80px;">
+            
+            <h1 style="font-size: 4.5rem; margin-bottom: 10px;">¡Bienvenido a Actividades DCC!</h1>
+            
+            <p style="font-size: 1.5rem; margin-top: 0; margin-bottom: 40px;">
+                Aqui puedes ver las actividades que realizan los miembros del departamento!. Registrate para participar!.
+            </p>
+
+            <!-- Imagen decorativa -->
+            <img src="https://images.unsplash.com/photo-1543852786-1cf6624b9987?q=80&w=387&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Decoración retro o tecnológica" style="border-radius: 30px;">
+            
+        </div>
 </section>
-{% endblock %}
+<!-- Ultimos 5 miembros agregados a la database -->
+</section>
+    <div id="container" style="padding-top: 80px; padding-bottom: 80px;">
+            
+            <h2 style="font-size: 3rem; margin-bottom: 20px;">Últimos 5 Miembros Registrados</h2>
+            
+            <div style="display: flex; flex-wrap: wrap; gap: 20px; justify-content: center;">
+                {% for miembro in miembros %}
+                <div style="background-color: #f0f0f0; padding: 20px; border-radius: 10px; width: 250px; text-align: center;">
+                    <h3 style="margin-top: 0;">{{ miembro.nombre }}</h3>
+                    <p style="margin-bottom: 5px;"><strong>Email:</strong> {{ miembro.email }}</p>
+                    <p style="margin-bottom: 0;"><strong>Teléfono:</strong> {{ miembro.telefono }}</p>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+{% endblock %}  

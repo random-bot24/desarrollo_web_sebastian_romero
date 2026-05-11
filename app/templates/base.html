@@ -10,7 +10,8 @@
             <header>
             <h1>Actividades DCC</h1>
             <nav>
-                <a href="{{url_for('listado_miembros')}}" class="button">Registro</a>
+                <a href="{{url_for('index')}}" class="button">Inicio</a>
+                <a href="{{url_for('registro_miembro')}}" class="button">Registro</a>
                 <a href="{{url_for('estadisticas')}}" class="button" >Estadísticas</a>
                 <a href="{{url_for('listado_miembros')}}" class="button">Lista de Miembros</a>
             </nav>
@@ -23,4 +24,6 @@
             <p>Desarrollo Web - Sebastián Romero</p>
         </footer>
     </body>
+    <script src="{{url_for('static', filename='js/validaciones.js')}}"></script>
+    <script src="{{url_for('static', filename='js/region_comuna.js')}}"></script>
 </html>

@@ -22,7 +22,7 @@ class Miembro(Base):
     id = Column(Integer, primary_key=True, index=True)
     nombre = Column(String(255), nullable=False)
     email = Column(String(80), unique=True, nullable=False)
-    telefono = Column(String(15), nullable=True)
+    telefono = Column(VARCHAR(15), nullable=True)
     fecha_registro = Column(DateTime, nullable=False)
     comuna_id = Column(Integer, ForeignKey('comuna.id'), nullable=False)
     comuna = relationship("Comuna", back_populates="miembros")

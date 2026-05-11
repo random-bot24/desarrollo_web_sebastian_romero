@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% block title %}Registro de Miembros{% endblock %}
+
+{% block head %}
+{{ super() }}
+{% endblock %}
+
+{% block content %}
+<section>
+    <h2>Registro</h2>
+    <div id="val-boxMembers" hidden>
+        <h2 id="val-msgMembers"></h2>
+        <ul id="val-listMembers"></ul>
+    </div>
+    <form name="Registro_miembros" method="post">
+        <label for="nombre">Nombre:</label>
+         <input type="text" id="nombre" name="nombre"><br><br>
+        <label for="email">Correo Electrónico:</label>
+        <input type="email" id="email" name="email"><br><br>
+        <label for="phone">Número de Teléfono:</label>
+        <input type="tel" id="phone" name="phone"><br><br>
+        <label for="Region">Región:</label>
+        <select id="Region" name="Region">
+            <option value="">Seleccione su Región</option>
+        </select>
+        <label for="Comuna">Comuna:</label>
+        <select id="Comuna" name="Comuna" disabled>
+            <option value="" disabled selected>Seleccione su Comuna</option>
+        </select>
+        <button type="submit" id="submit-btnMembers" class="button">Registrar</button>
+    </form>
+</section>
+{% endblock %}
