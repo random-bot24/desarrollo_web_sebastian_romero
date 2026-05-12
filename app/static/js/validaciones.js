@@ -6,8 +6,7 @@ function nameValidation(name){
 }
 
 function descriptionValidation(description){
-    if (!description) return false;
-    let lengthValid = description.trim().length >= 10 && description.trim().length <= 500;
+    let lengthValid =  description.trim().length <= 500;
     return lengthValid;
 }
 
@@ -28,11 +27,13 @@ function validateFiles(files){
     }
     return lengthValid && typeValid;
 }
-function validateHoursPerWeek(hours){
+function validateHours(hours){
     if (!hours) return false;
-    let hoursValid = Number.isInteger(Number(hours)) && Number(hours) >= 1 && Number(hours) <= 40;
-    return hoursValid;
+    let hoursValid = /^([01]\d|2[0-3]):([0-5]\d)$/;
+    let hoursValidResult = hoursValid.test(hours);
+    return hoursValidResult;
 }
+
 function validateDaysPerWeek(days){
     if (!days) return false;
     let hoursValid = Number.isInteger(Number(days)) && Number(days) >= 1 && Number(days) <= 7;
@@ -51,11 +52,12 @@ function validatePhone(phone){
 
 function validateActivitiesForm(){
     let myFiles = document.getElementById("files").files;
-    let myHours = document.getElementById("horas").value;
-    let myDays = document.getElementById("days").value;
+    let myHours = document.getElementById("hora_inicio").value;
+    let myDays = document.getElementById("dia-semana").value;
     let mySelect = document.getElementById("tipo-actividad").value;
-    let myDescription = document.getElementById("description").value;
-    let myName = document.getElementById("nombre").value;
+    let myDescription = document.getElementById("descripcion").value;
+    let myName = document.getElementById("nombreA").value;
+    let myDuration = document.getElementById("duracion").value;
     let validate = true;
     let invalidInputs = []
     function setinvalidInputs(input){
@@ -68,10 +70,10 @@ function validateActivitiesForm(){
     if (!validateSelect(mySelect)){
         setinvalidInputs("Tipo de actividad");
     }
-    if (!validateDaysPerWeek(myDays)){
+    if (!validateSelect(myDays)){
         setinvalidInputs("Dias");
     }
-    if (!validateHoursPerWeek(myHours)){
+    if (!validateHours(myHours)){
         setinvalidInputs("Horas");
     }
     if (!validateFiles(myFiles)){
@@ -80,7 +82,9 @@ function validateActivitiesForm(){
     if (!descriptionValidation(myDescription)){
         setinvalidInputs("Descripción");
     }
-
+    if (!validateHours(myDuration)){
+        setinvalidInputs("Duración");
+    }
 
     let validationBox = document.getElementById("val-box");
     let validationMsg = document.getElementById("val-msg");
@@ -106,8 +110,7 @@ function validateActivitiesForm(){
     }
     else{
         validationBox.hidden = true;
-        alert("Formulario enviado correctamente");
-        window.location.href = "main.html";
+        document.forms["form-actividades"].submit()
     }
 }
 
@@ -168,7 +171,18 @@ function validateRegistrationMember(){
     }
 }
 let submitButtonMembers = document.getElementById("submit-btnMembers");
-submitButtonMembers.addEventListener("click", (event) => {
-    event.preventDefault();
-    validateRegistrationMember();
-});
+if (submitButtonMembers){
+    submitButtonMembers.addEventListener("click", function(event){
+        event.preventDefault();
+        validateRegistrationMember();
+    });
+}
+
+let submitButtonActivities = document.getElementById("submit-btnActivities");
+if (submitButtonActivities){
+    submitButtonActivities.addEventListener("click", function(event){
+        event.preventDefault();
+        validateActivitiesForm();
+    });
+}
+

@@ -32,13 +32,14 @@ class Actividad(Base):
     __tablename__ = 'actividad'
     id = Column(Integer, primary_key=True, index=True)
     miembro_id = Column(Integer, ForeignKey('miembro.id'), nullable=False)
-    dia = Column(Enum('Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado', 'Domingo'), nullable=False)
+    dia = Column(Enum('lunes', 'martes', 'miércoles', 'jueves', 'viernes', 'sábado', 'domingo'), nullable=False)
     hora_inicio = Column(VARCHAR(5), nullable=False)
     duracion = Column(VARCHAR(5), nullable=False)
-    tipo = Column(Enum('Deporte', 'Cultura', 'Recreación'), nullable=False)
+    tipo = Column(Enum('arte', 'deporte', 'tecnología', 'social', 'recreación', 'otra'), nullable=False)
     descripcion = Column(Text(500), nullable=True)
     miembro = relationship("Miembro", back_populates="actividades")
     fotos = relationship("Foto", back_populates="actividad")
+    nombre = Column(String(255), nullable=False)
 
 class Foto(Base):
     __tablename__ = 'foto'
