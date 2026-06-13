@@ -38,7 +38,8 @@ class Actividad(Base):
     tipo = Column(Enum('arte', 'deporte', 'tecnología', 'social', 'recreación', 'otra'), nullable=False)
     descripcion = Column(Text(500), nullable=True)
     miembro = relationship("Miembro", back_populates="actividades")
-    fotos = relationship("Foto", back_populates="actividad")
+    fotos = relationship("Foto", back_populates="actividad", lazy='selectin')
+    comentarios = relationship("Comentario", back_populates="actividad")
     nombre = Column(String(255), nullable=False)
 
 class Foto(Base):
@@ -48,6 +49,15 @@ class Foto(Base):
     ruta_archivo = Column(VARCHAR(300), nullable=False)
     nombre_archivo = Column(VARCHAR(300), nullable=False)
     actividad = relationship("Actividad", back_populates="fotos")
+
+class Comentario(Base):
+    __tablename__ = 'comentario'
+    id = Column(Integer, primary_key=True, index=True)
+    texto = Column(VARCHAR(500), nullable=False)
+    fecha = Column(DateTime, nullable=False)
+    nombre = Column(VARCHAR(80), nullable=False)
+    actividad_id = Column(Integer, ForeignKey('actividad.id'), nullable=False)
+    actividad = relationship("Actividad", back_populates="comentarios")
 
 
 def create_member(nombre, email, telefono, fecha_registro, comuna_id):
@@ -68,3 +78,33 @@ def get_members():
     miembros = session.query(Miembro).all()
     session.close()
     return miembros
+
+def get_activities_by_member_id(miembro_id):
+    session = SessionLocal()
+    actividades = session.query(Actividad).filter(Actividad.miembro_id == miembro_id).all()
+    session.close()
+    return actividades
+
+def get_activities():
+    session = SessionLocal()
+    actividades = session.query(Actividad).all()
+    session.close()
+    return actividades
+
+def get_member_by_id(miembro_id):
+    session = SessionLocal()
+    miembro = session.query(Miembro).filter(Miembro.id == miembro_id).first()
+    session.close()
+    return miembro
+
+def get_fotos_by_activity_id(actividad_id):
+    session = SessionLocal()
+    fotos = session.query(Foto).filter(Foto.actividad_id == actividad_id).all()
+    session.close()
+    return fotos
+
+def get_comments_by_activity_id(actividad_id):
+    session = SessionLocal()
+    comentarios = session.query(Comentario).filter(Comentario.actividad_id == actividad_id).all()
+    session.close()
+    return comentarios

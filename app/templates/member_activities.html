@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+{% block title %} Actividades del Miembro {% endblock %}
+
+{% block content %}
+{% if actividades %}
+    <h2>Actividades de {{ miembro.nombre }}</h2>
+        <ul>
+        {% for actividad in actividades %}
+        <div id="container" style="padding-top: 80px; padding-bottom: 80px;">
+            <li>
+                <strong>{{ actividad.nombre }}</strong><br>
+                Duracion: {{ actividad.duracion }}<br>
+                Descripción: {{ actividad.descripcion }}<br>
+                Tipo: {{ actividad.tipo }}<br>
+                Día: {{ actividad.dia }}<br>
+                Fotos:<br>
+                {% if actividad.fotos %}
+                 {% for foto in actividad.fotos %}
+                    <img src="{{ url_for('static', filename='uploads/' + foto.nombre_archivo) }}" alt="Foto de {{ actividad.nombre }}" style="max-width: 200px; margin-top: 10px;">
+                {% endfor %}
+                {% else %}
+                    No hay fotos disponibles.
+                {% endif %}
+            </li>
+            <h4>Comentarios:</h4>
+            <div id="comentarios-container-{{ actividad.id }}">
+                Cargando comentarios...
+            </div>
+
+            <div id="mensaje-error-{{ actividad.id }}" style="color: red; display: none;"></div>
+            <form id="form-comentario-{{ actividad.id }}" onsubmit="agregarComentario(event, '{{ actividad.id }}')">
+                <input type="text" id="nombre-{{ actividad.id }}" placeholder="Nombre" required minlength="3" maxlength="80">
+                <textarea id="texto-{{ actividad.id }}" placeholder="Comentario..." required minlength="5"></textarea>
+                <button type="submit">Enviar</button>
+            </form>
+
+            <script>
+                document.addEventListener("DOMContentLoaded", () => {
+                    cargarComentarios('{{ actividad.id }}');
+                });
+            </script>
+        </div>
+        {% endfor %}
+
+{% else %}
+    <p>Este miembro no ha participado en ninguna actividad.</p>
+{% endif %}
+<script src="{{ url_for('static', filename='js/ajax_comments.js') }}"></script>
+{% endblock %}

@@ -1,16 +1,19 @@
 from flask import Flask, request, render_template, jsonify, redirect, url_for, session
 from database.db import SessionLocal
 from models.models import *
-from sqlalchemy import DateTime
+from sqlalchemy import DateTime, func
+from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
-import os
+from flask_cors import CORS, cross_origin
 from werkzeug.utils import secure_filename
+import os
 
 UPLOAD_FOLDER = 'static/uploads'
 ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'gif'}
 
 app = Flask(__name__)
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+
 
 @app.route('/')
 def index():
@@ -128,29 +131,89 @@ def listado_miembros(page=1):
     miembros = get_members()
     miembros_paginated = miembros[start:end]
     total_pages = (len(miembros) + per_page - 1) // per_page
+    actividades = get_activities()
 
-    return render_template("list_members2.html", miembros_paginated=miembros_paginated, total_pages=total_pages, page=page)
+    return render_template("list_members2.html", miembros_paginated=miembros_paginated, total_pages=total_pages, page=page, actividades=actividades)
 
 
 @app.route("/estadisticas", methods=["GET"])
 def estadisticas():
     return render_template("statistics2.html")
 
+@app.route("/actividad/<int:id>", methods=["GET", "POST"])
+def ver_actividad_miembro(id):
+    miembro =  get_member_by_id(id)
+    actividades = get_activities_by_member_id(id)
+    return render_template("member_activities.html", actividades=actividades, miembro=miembro)
 
-"""
-#posible validacion con ajax en el futuro, lo dejo comentado por ahora
-@app.route("/validate-registration",methods=["POST"])
-def validate_registration():
-    if request.method == "POST":
-        data = request.get_json()
-        member = Miembro.query.filter_by(email=data["email"]).first()
+# Numero de registros por dia para el grafico con AJAX
+@app.route("/get-register-per-day", methods=["GET"])
+@cross_origin(origin="127.0.0.1", supports_credentials=True)
+def get_register_per_day():
+    session = SessionLocal()
+    results = session.query(Miembro.fecha_registro, func.count(Miembro.id)).group_by(Miembro.fecha_registro).all() 
+    data = [{ "fecha": str(fecha), "cantidad": cantidad} for fecha, cantidad in results]
+    session.close()
+    return jsonify(data)
 
-        if member:
-            return jsonify({"status": "success", "message": "Validación exitosa"})
-        else:
-            return jsonify({"status": "error", "message": "Validación fallida"})
-"""
-            
+#Numero de actividades por tipo para el grafico de torta con AJAX
+@app.route("/get-activities-per-type", methods=["GET"])
+@cross_origin(origin="127.0.0.1", supports_credentials=True)
+def get_activities_per_type():
+    session = SessionLocal()
+    results = session.query(Actividad.tipo, func.count(Actividad.id)).group_by(Actividad.tipo).all()
+    data = [{"tipo": tipo, "cantidad": cantidad} for tipo, cantidad in results]
+    session.close()
+    return jsonify(data)
+
+# enviar comentarios en un json con API 
+@app.route("/actividades/<int:actividad_id>", methods=["GET"])
+@cross_origin(origin="127.0.0.1", supports_credentials=True)
+def comments(actividad_id):
+    session = SessionLocal()
+    try:
+        actividad = session.get(Actividad, actividad_id)
+        comentarios = session.query(Comentario).filter(Comentario.actividad_id == actividad_id).all()
+        if not actividad:
+            return jsonify({"error": "Actividad no encontrada"}), 404
+        lista_comentarios=[]
+        for comentario in comentarios:
+            lista_comentarios.append({
+                "nombre": comentario.nombre,
+                "texto": comentario.texto,
+                "fecha": comentario.fecha
+            })
+        return jsonify(lista_comentarios)
+    finally:
+        session.close()
+
+#POST del comentario con ajax y json (validacion y creacion comentario) y lo guarda
+@app.route("/comentario/<int:actividad_id>", methods=["POST"])
+def cargar_comentario(actividad_id):
+    get_data= request.get_json()
+    nombre = get_data.get('nombre','').strip()
+    texto = get_data.get('texto','').strip()
+    if not (3 <= len(nombre) <= 50):
+        return jsonify({"error": "El nombre debe tener entre 3 y 50 caracteres"}), 400
+    if not (5 <= len(texto) <= 500):
+        return jsonify({"error": "El comentario debe tener entre 5 y 500 caracteres"}), 400
+    session = SessionLocal()
+    try:
+        new_comment = Comentario(actividad_id=actividad_id, texto=texto, nombre=nombre, fecha=datetime.now())
+        session.add(new_comment)
+        session.commit()
+        return jsonify({"mensaje" :"Comentario agregado exitosamente"}), 201
+
+    except Exception as e:
+        session.rollback()
+        return jsonify({"error": "Error al agregar comentario"}), 500
+    
+    finally:
+        session.close()
+    
+    
+
+     
 if __name__ == '__main__':
     app.run(debug=True, port=5000)
 

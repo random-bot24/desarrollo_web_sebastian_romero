@@ -50,13 +50,19 @@ function validatePhone(phone){
     return phoneValid;
 }
 
+function validateText(comment,x,y){
+    if (!comment) return false;
+    let lengthValid= comment.trim().length <= x && comment.trim().length <= y;
+    return lengthValid;
+}
+
 function validateActivitiesForm(){
     let myFiles = document.getElementById("files").files;
     let myHours = document.getElementById("hora_inicio").value;
-    let myDays = document.getElementById("dia-semana").value;
-    let mySelect = document.getElementById("tipo-actividad").value;
+    let myDays = document.getElementById("dia").value;
+    let mySelect = document.getElementById("tipo").value;
     let myDescription = document.getElementById("descripcion").value;
-    let myName = document.getElementById("nombreA").value;
+    let myName = document.getElementById("nombre").value;
     let myDuration = document.getElementById("duracion").value;
     let validate = true;
     let invalidInputs = []
@@ -168,6 +174,42 @@ function validateRegistrationMember(){
     else{
         validationBox.hidden = true;
         document.forms["Registro_miembros"].submit()
+    }
+}
+
+function validateComment(){
+    let myName = document.getElementById("nombre").value;
+    let myComment = document.getElementById("comment").value;
+    let invalidInputs = [];
+    let validate = true;
+    function setinvalidInputs(input){
+        invalidInputs.push(input);
+        validate&&= false;
+    }
+    if (!validateText(myName,3,80)){
+        setinvalidInputs("Nombre");
+    }
+    if (!validateText(myComment,3,200)){
+        setinvalidInputs("Comentario");
+    }
+
+    if (!validate){
+        validationListComment.textContent = "";
+        // agregar elementos inválidos al elemento val-list.
+        for (input of invalidInputs) {
+            let listElement = document.createElement("li");
+            listElement.innerText = input;
+            validationListComment.append(listElement);
+        }
+        // establecer val-msg
+        validationMsgComment.innerText = "Los siguientes campos son inválidos:";
+        // aplicar estilos de error
+        validationBoxComment.style.backgroundColor = "#ffdddd";
+        validationBoxComment.style.borderLeftColor = "#f44336";
+
+        // hacer visible el mensaje de validación
+        validationBoxComment.hidden = false;
+        validationBoxComment.scrollIntoView({behavior: "smooth"});
     }
 }
 let submitButtonMembers = document.getElementById("submit-btnMembers");

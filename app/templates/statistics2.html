@@ -1,9 +1,17 @@
 {% extends "base.html" %}
+{% block head %}
+{{ super()}}
+<script src="https://code.highcharts.com/highcharts.js"></script>
+
+{% endblock %}
 {% block title %} Estadisticas DCC {% endblock %}
 
 {% block content %}
 <section>
-    <img src="{{url_for('static', filename='img/Chart Title.png')}}" alt="Gráfico de estadísticas">
-    <img src="{{url_for('static', filename='img/img45.png')}}" alt="Grafico promedio">  
+    <h2>Estadísticas</h2>
+    <div id="container" style="width:100%; height:400px;"></div>
+    <script src="{{url_for('static', filename='js/ajax_charts.js')}}"></script>
+    <div id="container2" style="width:100%; height:400px;"></div>
+    <script src="{{url_for('static', filename='js/ajax_piechart.js')}}"></script>
 </section>   
 {% endblock %}

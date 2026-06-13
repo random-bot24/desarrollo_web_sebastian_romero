@@ -12,13 +12,14 @@
                     <h3 style="margin-top: 0;">{{ miembro.nombre }}</h3>
                     <p style="margin-bottom: 5px;"><strong>Email:</strong> {{ miembro.email }}</p>
                     <p style="margin-bottom: 0;"><strong>Teléfono:</strong> {{ miembro.telefono }}</p>
+                    <a href="{{ url_for('ver_actividad_miembro', id=miembro.id) }}" class="button" style="margin-top: 10px;">Ver Actividades</a>
                 </div>
             {% endfor %}
             {% if page > 1 %}
-                <a href="{{ url_for('listado_miembros', page=page-1) }}" class="button">Anterior</a>
+                <a href="{{ url_for('listado_miembros', page=page-1) }}" class="button" style="margin-top: 120px;">Anterior</a>
             {% endif %}
             {% if page < total_pages %}
-                <a href="{{ url_for('listado_miembros', page=page+1) }}" class="button">Siguiente</a>
+                <a href="{{ url_for('listado_miembros', page=page+1) }}" class="button" style="margin-top: 120px;">Siguiente</a>
             {% endif %}
         </div>
 </div>
