@@ -13,9 +13,10 @@ La aplicacion web posee 4 paginas para acceder e interactuar, con las siguientes
 
 - Lista de miembros: Se incluye una lista de miembros con el metodo de paginacion. Cada pagina incluye 5 miembros, esto se hizo como prueba para probar si funcionaba. 
 
+- Estadisticas: Dos graficos hechos con highcharts y AJAX. Se utilizó fetch para el manejo de las APIS.
+
 #### 2.Decisiones tomadas
 - Para comenzar, las primeras decisiones que se tomaron es utilizar una navbar para usar las redirecciones, ya que es lo primero que el usuario ve, y asi le permite cambiar de pagina facilmente.
-
 
 - Para mostrar los errores en validaciones, se usó una lista de errores que aparece en el principio de la pagina. En el momento que se envia el formulario de registro con errores, te envía al comienzo del formulario, ya que si no se hacia esto no se podia ver los errores, por lo que era incomodo para el usuario.
  
@@ -25,6 +26,7 @@ La aplicacion web posee 4 paginas para acceder e interactuar, con las siguientes
 
 - No se hicieron cambios a la base de datos entregada por el equipo docente. Se añadieron y se hicieron cambios en los formularios para facilitar el proceso.
 
+- Se usó fetch y try/catch para el manejo de las APIS y las funciones asincronas. Esto para mayor comodidad.
 
 
 
