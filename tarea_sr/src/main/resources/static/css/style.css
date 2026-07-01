@@ -1,0 +1,116 @@
+body {
+    background-color: #f2f2f2;
+    font-family: Arial, sans-serif;
+    margin: 0; 
+}
+
+header {
+    background-color: #f2f2f2;
+    padding: 20px;
+    text-align: center;
+}
+
+h1 {
+    font-family: Arial, sans-serif;
+    color: #6D28D9;
+}
+
+h2 {
+    text-align:center;
+    color: #6D28D9;
+    margin: 0;
+}
+
+.button {
+    display: block;            
+    width: 150px;              
+    padding: 10px 20px;
+    background-color: purple;
+    color: white;
+    text-decoration: none;
+    border-radius: 20px; 
+    text-align: center; 
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    margin: 20px auto;
+    padding: 20px;
+    gap: 5px;
+    width: 300px;
+    background-color:#F5F3FF;
+    border-radius: 5px;
+    border: 1px solid #C084FC;
+}
+
+input {
+    border: 1px solid #ccc;
+    padding: 5px;
+    border-radius: 5px;
+}
+
+label {
+    color: #374151;
+}
+
+#val-box, #val-boxMembers, #val-boxComment {
+    background-color: #ffdddd;
+    border-left: 6px solid #f44336;
+    margin-bottom: 20px;
+    padding: 10px;
+    border-radius: 4px;
+    width: 300px;
+    margin: 20px auto;
+    flex-direction: column;
+}
+
+#val-list, #val-listMembers, #val-listComment {
+    padding-left: 20px;
+    margin: 0;
+    list-style-type: disc;
+    color: #a94442;
+}
+
+#val-box h2, #val-boxMembers h2, #val-boxComment h2 {
+    margin: 0 0 10px 0;
+    font-size: 18px;
+}
+
+img {
+    margin: 40px auto;
+    max-width: 100%;
+    height: auto;
+    display: inline-block;
+    justify-content: center;
+    padding: 20px;
+}
+
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 40px;
+    margin: 10px 20px;
+    border-radius: 10px;
+    background: #d7d0f7;
+    backdrop-filter: blur(10px);
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+
+#container, #container2, #buscador-container, #contenedor-resultados {
+    background-color:#F5F3FF;
+    border-radius: 10px;
+    padding: 20px;
+    border: 1px solid #C084FC;
+    width: 80%;
+    margin: 20px auto;
+    flex-direction: column;
+    font-family: 'Old Standard TT', serif;
+    color: #374151;
+    text-align: center; 
+}
+
+#container h1, #container2 h1 {
+    color: #6D28D9;
+}

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Buscador de Actividades - Tarea 4</title>
+    
+    <link rel="stylesheet" th:href="@{/css/style.css}" href="/css/style.css">
+</head>
+<body>
+
+    <header>
+        <h1>Actividades Extraprogramáticas DCC</h1>
+    </header>
+
+    <main>
+        <section class="buscador-section">
+            <h2>Buscar Actividad</h2>
+            <div class="buscador-container" id="buscador-container">
+                <label for="input-buscador">Ingresa texto (mínimo 3 caracteres):</label>
+                <input type="text" id="input-buscador" placeholder="Ej: arte, santiago, torneo...">
+            </div>
+        </section>
+
+        <section class="resultados-section">
+            <h2>Resultados</h2>
+            <div id="contenedor-resultados">
+                <p>Comienza a escribir para ver los resultados...</p>
+            </div>
+        </section>
+    </main>
+
+    <script th:src="@{/js/functions.js}" src="/js/functions.js"></script>
+
+</body>
+</html>
